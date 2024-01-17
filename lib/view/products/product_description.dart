@@ -15,27 +15,48 @@ import '../../utils/toastMessage.dart';
 import '../../viewModel/product_list_provider.dart';
 import '../responsive_layout.dart';
 
-class ProductDescription extends StatelessWidget {
+class ProductDescription extends StatefulWidget {
   final product_id;
   ProductDescription({
     super.key,
     this.product_id,
   });
 
+  @override
+  State<ProductDescription> createState() => _ProductDescriptionState();
+}
+
+class _ProductDescriptionState extends State<ProductDescription> {
   SingleProductProvider singleProductProvider = SingleProductProvider();
+
   CartListProvider cartListProvider = CartListProvider();
+
+  @override
+  void initState() {
+    singleProductProvider.fetchSingleProductDetails();
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    singleProductProvider.fetchSingleProductDetails(singleProductProvider.pid);
+    // singleProductProvider.fetchSingleProductDetails();
     // singleProductProvider.fetchSingleProductDetails(i);
     // var ki = context.read<SingleProductProvider>().pid;
     print("called");
     return Scaffold(
-      body: Consumer<SingleProductProvider>(
+        body: ChangeNotifierProvider(
+      create: (BuildContext context) => singleProductProvider,
+      child: Consumer<SingleProductProvider>(
         builder:
             (BuildContext context, SingleProductProvider value, Widget? child) {
-          print(singleProductProvider.pid.toString());
+          // print(singleProductProvider.toString());
+
           var data = value.singleProductDetails.data;
+          // if (data!.id != singleProductProvider.pid) {
+          //   singleProductProvider
+          //       .fetchSingleProductDetails(singleProductProvider.pid ?? 5);
+          // }
 
           switch (value.singleProductDetails.status) {
             case Status.loading:
@@ -357,6 +378,6 @@ class ProductDescription extends StatelessWidget {
           }
         },
       ),
-    );
+    ));
   }
 }

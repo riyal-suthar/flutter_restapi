@@ -84,15 +84,15 @@ class SingleProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  get pid => _id;
-  var _id = 0;
+  int _id = 1;
+  // get id => _id;
   setProductId(int productId) {
     if (_id == productId) {
       return;
     }
     _id = productId;
     notifyListeners();
-    // fetchSingleProductDetails(_id);
+    // fetchSingleProductDetails();
     // notifyListeners();
   }
 
@@ -104,7 +104,8 @@ class SingleProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  fetchSingleProductDetails(int id) async {
+  fetchSingleProductDetails() async {
+    int id = _id;
     print("product fetched id : $id");
     setProductDetails(ApiResponse.loading());
     _appRepository.singleProductDetails(id).then((value) {

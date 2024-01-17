@@ -20,7 +20,7 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
   SingleProductProvider singleProductProvider = SingleProductProvider();
   @override
   void initState() {
-    singleProductProvider.fetchSingleProductDetails(widget.product_id);
+    // singleProductProvider.fetchSingleProductDetails();
     super.initState();
   }
 
@@ -42,29 +42,25 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
               create: (BuildContext context) => singleProductProvider,
             ),
           ],
-          child: ChangeNotifierProvider(
-            create: (BuildContext context) => singleProductProvider,
-            child: Consumer<SingleProductProvider>(
-              builder: (context, value, _) {
-                var data = value.singleProductDetails.data;
-                switch (value.singleProductDetails.status) {
-                  case Status.loading:
-                    print("object");
-                    return Center(child: CircularProgressIndicator());
-                  case Status.error:
-                    return Center(
-                      child:
-                          Text(value.singleProductDetails.message.toString()),
-                    );
-                  case Status.complete:
-                    print("Status completed");
-                    return buildSingleChildScrollView(data!, context);
+          child: Consumer<SingleProductProvider>(
+            builder: (context, value, _) {
+              var data = value.singleProductDetails.data;
+              switch (value.singleProductDetails.status) {
+                case Status.loading:
+                  print("object");
+                  return Center(child: CircularProgressIndicator());
+                case Status.error:
+                  return Center(
+                    child: Text(value.singleProductDetails.message.toString()),
+                  );
+                case Status.complete:
+                  print("Status completed");
+                  return buildSingleChildScrollView(data!, context);
 
-                  default:
-                    return const SizedBox();
-                }
-              },
-            ),
+                default:
+                  return const SizedBox();
+              }
+            },
           ),
         ),
       ),

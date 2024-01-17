@@ -42,7 +42,6 @@ class _ProductItemsState extends State<ProductItems> {
       ],
       child: Consumer2<ProductListProvider, SingleProductProvider>(
           builder: (context, value, val, _) {
-        print(_selectedItem);
         switch (value.productList.status) {
           case Status.loading:
             return Center(
@@ -167,10 +166,10 @@ class _ProductItemsState extends State<ProductItems> {
 
                                   //------with provider-------//
                                   // print("with provider");
-                                  // val.setProductId(product_id);
+                                  val.setProductId(product_id);
                                   // val.setIsChanged(true);
-                                  val.fetchSingleProductDetails(product_id);
-                                  print("object");
+
+                                  // val.fetchSingleProductDetails();
                                 }
                               },
                               selected: ResponsiveLayout.isMobile(context)
