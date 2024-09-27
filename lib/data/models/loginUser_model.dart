@@ -7,7 +7,7 @@ class LoginUser {
     this.lastName,
     this.gender,
     required this.image,
-    required this.token,
+    required this.accessToken,
   });
 
   final int? id;
@@ -17,7 +17,7 @@ class LoginUser {
   final String? lastName;
   final String? gender;
   final String? image;
-  final String? token;
+  final String? accessToken;
 
   factory LoginUser.fromJson(Map<String, dynamic> json) {
     return LoginUser(
@@ -28,7 +28,7 @@ class LoginUser {
       lastName: json["lastName"],
       gender: json["gender"],
       image: json["image"],
-      token: json["token"],
+      accessToken: json["accessToken"],
     );
   }
 
@@ -40,6 +40,6 @@ class LoginUser {
         "lastName": lastName,
         "gender": gender,
         "image": image,
-        "token": token,
+        "accessToken": accessToken,
       };
 }

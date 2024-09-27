@@ -18,7 +18,7 @@ class _CartScreenState extends State<CartScreen> {
     return ChangeNotifierProvider(
         create: (BuildContext context) => CartListProvider(),
         child: Consumer<CartListProvider>(builder: (context, value, _) {
-          print(cartList.length);
+          debugPrint(cartList.length);
           return Scaffold(
             bottomNavigationBar: SizedBox(
               height: 180,
@@ -53,15 +53,15 @@ class _CartScreenState extends State<CartScreen> {
                           Navigator.pushNamed(
                               context, RouteName.checkOutScreen);
                         },
-                        child: Text("Checkout"))
+                        child: const Text("Checkout"))
                   ],
                 ),
               ),
             ),
             appBar: AppBar(
-              title: Text("Cart"),
+              title: const Text("Cart"),
               leading: IconButton(
-                icon: Icon(Icons.arrow_back_ios_new),
+                icon: const Icon(Icons.arrow_back_ios_new),
                 onPressed: () {
                   Navigator.pop(context);
                 },

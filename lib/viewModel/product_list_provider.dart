@@ -5,7 +5,6 @@ import 'package:flutter_restapi/data/models/product_model.dart';
 import 'package:flutter_restapi/data/repository/repository.dart';
 import 'package:flutter_restapi/data/services/api_response.dart';
 import 'package:flutter_restapi/utils/toastMessage.dart';
-import 'package:flutter_restapi/view/products/product_description.dart';
 
 class ProductListProvider with ChangeNotifier {
   final _appRepository = AppRepository();
@@ -38,7 +37,7 @@ class ProductListProvider with ChangeNotifier {
       fetchProductList();
     } else {
       setProductList(ApiResponse.loading());
-      _appRepository.categoryProductsList(categoryName).then((value) {
+      _appRepository.productsByCategoryList(categoryName).then((value) {
         setProductList(ApiResponse.complete(value));
       }).onError((error, stackTrace) {
         toastMessage("Something went Wrong");
@@ -77,6 +76,8 @@ class ProductListProvider with ChangeNotifier {
 }
 
 class SingleProductProvider with ChangeNotifier {
+  final _appRepository = AppRepository();
+
   var _imgindex = 0;
   get imgindex => _imgindex;
   setImgIndex(index) {
@@ -84,32 +85,32 @@ class SingleProductProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  int _id = 1;
-  // get id => _id;
-  setProductId(int productId) {
-    if (_id == productId) {
-      return;
-    }
-    _id = productId;
-    notifyListeners();
-    // fetchSingleProductDetails();
-    // notifyListeners();
-  }
-
-  final _appRepository = AppRepository();
+  // var _id = 1;
+  // get pid => _id;
+  // setProductId(int productId) {
+  //   // if (_id == productId) {
+  //   //   return;
+  //   // }
+  //   // _id = productId;
+  //   // notifyListeners();
+  //   fetchSingleProductDetails(productId);
+  //   notifyListeners();
+  // }
+  // ValueNotifier<int> idIs = ValueNotifier(1);
 
   ApiResponse<Products> singleProductDetails = ApiResponse.loading();
   setProductDetails(ApiResponse<Products> response) {
     singleProductDetails = response;
+    print("value called ====: ${singleProductDetails.data?.title.toString()}");
     notifyListeners();
   }
 
-  fetchSingleProductDetails() async {
-    int id = _id;
-    print("product fetched id : $id");
+  fetchSingleProductDetails(int id) async {
+    print("product fetched id : $id ");
     setProductDetails(ApiResponse.loading());
     _appRepository.singleProductDetails(id).then((value) {
       setProductDetails(ApiResponse.complete(value));
+      print("value: ${value?.description.toString()}");
     }).onError((error, stackTrace) {
       toastMessage("Something went wrong");
       setProductDetails(ApiResponse.error(error.toString()));

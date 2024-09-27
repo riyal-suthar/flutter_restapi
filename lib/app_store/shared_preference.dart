@@ -5,7 +5,7 @@ class AppStore {
   setUserToken(LoginUser user) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setInt('user_id', user.id!);
-    sp.setString('user_token', user.token.toString());
+    sp.setString('user_token', user.accessToken.toString());
     sp.setString('user_name', user.username.toString());
     sp.setString('user_image', user.image.toString());
     sp.setString('user_email', user.email.toString());
@@ -22,7 +22,7 @@ class AppStore {
 
     return LoginUser(
       id: userId,
-      token: userToken,
+      accessToken: userToken,
       username: userName,
       email: userEmail,
       image: userImage,

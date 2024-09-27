@@ -32,7 +32,7 @@ class DrawerItem extends StatelessWidget {
               onTap: onPressed,
               child: Row(
                 children: [
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Expanded(
                     child: Container(
                       padding: const EdgeInsets.only(bottom: 15, right: 5),
@@ -44,7 +44,7 @@ class DrawerItem extends StatelessWidget {
                                 ? Colors.white
                                 : Theme.of(context).iconTheme.color,
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Text(
                             title,
                             style:
@@ -54,7 +54,7 @@ class DrawerItem extends StatelessWidget {
                                           : Colors.black.withOpacity(0.5),
                                     ),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           if (number != null)
                             Badge(label: Text(number.toString()))
                         ],
@@ -66,7 +66,7 @@ class DrawerItem extends StatelessWidget {
             ),
           ),
         ),
-        Divider()
+        const Divider()
       ],
     );
   }

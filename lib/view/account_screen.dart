@@ -26,9 +26,9 @@ class _AccountScreenState extends State<AccountScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Account"),
+        title: const Text("Account"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios_new),
+          icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -40,7 +40,7 @@ class _AccountScreenState extends State<AccountScreen> {
             Column(
               children: [
                 user!.image!.isEmpty
-                    ? Icon(
+                    ? const Icon(
                         Icons.person_outline,
                         size: 120,
                       )
@@ -64,7 +64,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 SizedBox(
                     width: 130,
                     child: OutlinedButton(
-                        onPressed: () {}, child: Text("Edit Profile")))
+                        onPressed: () {}, child: const Text("Edit Profile")))
               ],
             ),
             Column(

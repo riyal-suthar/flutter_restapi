@@ -32,6 +32,8 @@
   <title>flutter_restapi</title>
   <link rel="manifest" href="manifest.json">
 
+
+
   <script>
     // The value below is injected by flutter build, do not touch.
     const serviceWorkerVersion = null;
@@ -41,6 +43,8 @@
 </head>
 <body>
   <script>
+  let useHtml = true;
+
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -48,6 +52,7 @@
           serviceWorkerVersion: serviceWorkerVersion,
         },
         onEntrypointLoaded: function(engineInitializer) {
+          let config = {renderer: useHtml ? "html" : "canvaskit", };
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
           });
@@ -55,5 +60,6 @@
       });
     });
   </script>
+
 </body>
 </html>

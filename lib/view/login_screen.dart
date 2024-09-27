@@ -1,5 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_restapi/routes/routes_name.dart';
 import 'package:flutter_restapi/utils/app_img.dart';
 import 'package:flutter_restapi/viewModel/login_provider.dart';
 import 'package:provider/provider.dart';
@@ -25,27 +25,25 @@ class LoginScreen extends StatelessWidget {
                 ImageAssets.instance.appLogin,
                 height: 200,
               ),
-              SizedBox(
-                height: 12,
-              ),
+              const SizedBox(height: 12,),
               TextFormField(
                 controller: emailC,
-                decoration: InputDecoration(
-                    hintText: 'Enter email',
+                decoration: const InputDecoration(
+                    hintText: 'Email or Username',
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black87))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 12,
               ),
               TextFormField(
                 controller: passwordC,
-                decoration: InputDecoration(
-                    hintText: 'Enter password',
+                decoration: const InputDecoration(
+                    hintText: 'Password',
                     border: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.black87))),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               ElevatedButton(
@@ -59,12 +57,19 @@ class LoginScreen extends StatelessWidget {
                   // Navigator.pushReplacementNamed(context, RouteName.homeScreen);
                 },
                 child: logInProvider.isLoading
-                    ? CircularProgressIndicator()
-                    : Text("Login"),
+                    ? const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircularProgressIndicator(),
+                    )
+                    : const Text("Login"),
               ),
-              SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 21,),
+              const Tooltip(
+                message: "Username: emilys\nPassword: emilyspass",
+                child: Icon(
+                  CupertinoIcons.question_circle,
+                ),
+              )
             ],
           ),
         ),

@@ -52,7 +52,7 @@ class CartListProvider with ChangeNotifier {
         .userCartList()
         .then((value) => setUserCartList(ApiResponse.complete(value)))
         .onError((error, stackTrace) {
-      toastMessage("Something went Wrong");
+      toastMessage("Something went Wrong on cart page");
       setUserCartList(ApiResponse.error(error.toString()));
     });
   }

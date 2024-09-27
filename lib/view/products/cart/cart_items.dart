@@ -30,7 +30,7 @@ class _CartItemsState extends State<CartItems> {
         child: Consumer<CartListProvider>(builder: (context, value, _) {
           switch (value.userCartList.status) {
             case Status.loading:
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             case Status.error:
@@ -43,110 +43,118 @@ class _CartItemsState extends State<CartItems> {
                   height: 200,
                   child: Padding(
                     padding: const EdgeInsets.all(12.0),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Total",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                    child: value.userCartList.data!.carts!.isEmpty
+                        ? const SizedBox()
+                        : SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Total",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      value.userCartList.data!.carts![0].total
+                                              .toString() +
+                                          " Rs.",
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              Text(
-                                value.userCartList.data!.carts![0].total
-                                        .toString() +
-                                    " Rs.",
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Disc. Price",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      value.userCartList.data!.carts![0]
+                                              .discountedTotal
+                                              .toString() +
+                                          " Rs.",
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                            ],
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Total Products ",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      value.userCartList.data!.carts![0]
+                                          .totalProducts
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      "Total Quantity ",
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      value.userCartList.data!.carts![0]
+                                          .totalQuantity
+                                          .toString(),
+                                      style: const TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 24.0,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(
+                                          context, RouteName.checkOutScreen);
+                                    },
+                                    child: const Text("Checkout"))
+                              ],
+                            ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Disc. Price",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                value.userCartList.data!.carts![0]
-                                        .discountedTotal
-                                        .toString() +
-                                    " Rs.",
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Total Products ",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                value.userCartList.data!.carts![0].totalProducts
-                                    .toString(),
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "Total Quantity ",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                value.userCartList.data!.carts![0].totalQuantity
-                                    .toString(),
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24.0,
-                          ),
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, RouteName.checkOutScreen);
-                              },
-                              child: Text("Checkout"))
-                        ],
-                      ),
-                    ),
                   ),
                 ),
                 appBar: AppBar(
-                  title: Text("Cart"),
+                  title: const Text("Cart"),
                   leading: IconButton(
-                    icon: Icon(Icons.arrow_back_ios_new),
+                    icon: const Icon(Icons.arrow_back_ios_new),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -156,7 +164,7 @@ class _CartItemsState extends State<CartItems> {
                       onPressed: () {
                         value.removeCartList();
                       },
-                      icon: Icon(Icons.delete),
+                      icon: const Icon(Icons.delete),
                     )
                   ],
                 ),

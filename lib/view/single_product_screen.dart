@@ -20,7 +20,7 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
   SingleProductProvider singleProductProvider = SingleProductProvider();
   @override
   void initState() {
-    // singleProductProvider.fetchSingleProductDetails();
+    singleProductProvider.fetchSingleProductDetails(widget.product_id);
     super.initState();
   }
 
@@ -30,31 +30,27 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios_new),
+            icon: const Icon(Icons.arrow_back_ios_new),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
         ),
-        body: MultiProvider(
-          providers: [
-            Provider(
-              create: (BuildContext context) => singleProductProvider,
-            ),
-          ],
+        body: ChangeNotifierProvider(
+          create: (BuildContext context) => singleProductProvider,
           child: Consumer<SingleProductProvider>(
             builder: (context, value, _) {
               var data = value.singleProductDetails.data;
               switch (value.singleProductDetails.status) {
                 case Status.loading:
-                  print("object");
-                  return Center(child: CircularProgressIndicator());
+                  debugPrint("object");
+                  return const Center(child: CircularProgressIndicator());
                 case Status.error:
                   return Center(
                     child: Text(value.singleProductDetails.message.toString()),
                   );
                 case Status.complete:
-                  print("Status completed");
+                  debugPrint("Status completed");
                   return buildSingleChildScrollView(data!, context);
 
                 default:
@@ -69,14 +65,14 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
 
   buildSingleChildScrollView(Products data, BuildContext context) {
     return SingleChildScrollView(
-      padding: EdgeInsets.all(8),
+      padding: const EdgeInsets.all(8),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          (data!.images!.length > 0)
+          (data.images!.isNotEmpty)
               ? Container(
-                  padding: EdgeInsets.only(top: 24),
+                  padding: const EdgeInsets.only(top: 24),
                   child: CarouselSlider(
                       options: CarouselOptions(
                           height: MediaQuery.of(context).size.height * .30,
@@ -85,7 +81,7 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
                           enlargeCenterPage: true,
                           aspectRatio: 10.0,
                           onPageChanged: (index, reason) {
-                            print("page index is " + index.toString());
+                            print("page index is $index");
                             // _currentIndex = index;
                             context
                                 .read<SingleProductProvider>()
@@ -109,20 +105,20 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
                           )
                           .toList()),
                 )
-              : SizedBox(),
-          SizedBox(
+              : const SizedBox(),
+          const SizedBox(
             height: 24,
           ),
-          (data.images!.length > 0)
+          (data.images!.isNotEmpty)
               ? Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: data.images!.map((urlOfItem) {
                     int index = data.images!.indexOf(urlOfItem);
-                    print(index.toString() + "this is the index indicator");
+                    debugPrint("${index}this is the index indicator");
                     return Container(
                       height: 10,
                       width: 10,
-                      margin: EdgeInsets.symmetric(horizontal: 8),
+                      margin: const EdgeInsets.symmetric(horizontal: 8),
                       decoration: BoxDecoration(
                         // borderRadius: BorderRadius.circular(100),
                         shape: BoxShape.circle,
@@ -134,42 +130,43 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
                     );
                   }).toList(),
                 )
-              : SizedBox(),
-          SizedBox(
+              : const SizedBox(),
+          const SizedBox(
             height: 12,
           ),
           Text(
             data.title.toString(),
-            style: TextStyle(fontWeight: FontWeight.w700),
+            style: const TextStyle(fontWeight: FontWeight.w700),
           ),
-          Text('Brand : ' + data.brand.toString()),
-          Text("Available Stock : " + data.stock.toString()),
-          Text('Description :\n' + data.description.toString()),
-          Text('Category : ' + data.category.toString()),
+          Text('Brand : ${data.brand}'),
+          Text("Available Stock : ${data.stock}"),
+          Text('Description :\n${data.description}'),
+          Text('Category : ${data.category}'),
           Flex(
             direction: Axis.horizontal,
             children: [
               Text(
-                "ratings : " + data.rating.toString(),
+                "ratings : ${data.rating}",
               ),
-              Icon(
+              const Icon(
                 Icons.star,
                 color: Colors.yellow,
                 size: 10,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 12,
               ),
               Text(
-                data.discountPercentage.toString() + "%",
+                "${data.discountPercentage}%",
                 style:
-                    TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+                    const TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
               ),
             ],
           ),
           Text(
-            data.price.toString() + 'Rs.',
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+            '${data.price}Rs.',
+            style: const TextStyle(
+                color: Colors.green, fontWeight: FontWeight.bold),
           ),
           ChangeNotifierProvider(
             create: (BuildContext context) => CartListProvider(),

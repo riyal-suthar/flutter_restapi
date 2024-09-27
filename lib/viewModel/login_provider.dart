@@ -18,18 +18,19 @@ class LogInProvider with ChangeNotifier {
   Future<void> useLogin(dynamic data, BuildContext context) async {
     setLoading(true);
     _appRepository.userLogIn(data).then((value) {
-      if (value!.token == '' || value.token == null) {
-        toastMessage("Something went wrong");
+      if (value!.accessToken == '' || value.accessToken == null) {
+        // AppStore().removeToken();
+        toastMessage("Something went wrong : token login");
       } else {
         Navigator.pushReplacementNamed(context, RouteName.homeScreen);
       }
 
       AppStore().setUserToken(value);
-      print("value of token : ${value.token}");
+      debugPrint("value of token : ${value.accessToken}");
 
       setLoading(false);
     }).onError((error, stackTrace) {
-      print(error.toString());
+      debugPrint(error.toString());
       toastMessage("Something went wrong...!");
       setLoading(false);
     });

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_restapi/app_store/shared_preference.dart';
 import 'package:flutter_restapi/data/models/loginUser_model.dart';
-import 'package:flutter_restapi/view/splash_screen.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 toastMessage(String message) {
@@ -15,6 +14,6 @@ toastMessage(String message) {
       fontSize: 16.0);
 }
 
-// final userId = AppStore().getUserToken().then((value) => value.id);
+final userId = AppStore().getUserToken().then((value) => value.id);
 
-late final LoginUser? user;
+LoginUser? user;

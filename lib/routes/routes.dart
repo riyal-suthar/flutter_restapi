@@ -20,7 +20,7 @@ class Routes {
   static MaterialPageRoute generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.splashScreen:
-        return MaterialPageRoute(builder: (context) => SplashScreen());
+        return MaterialPageRoute(builder: (context) => const SplashScreen());
 
       case RouteName.logInScreen:
         return MaterialPageRoute(
@@ -29,7 +29,7 @@ class Routes {
                 child: LoginScreen()));
 
       case RouteName.accountScreen:
-        return MaterialPageRoute(builder: (context) => AccountScreen());
+        return MaterialPageRoute(builder: (context) => const AccountScreen());
 
       case RouteName.homeScreen:
         final arg = settings.arguments;
@@ -47,10 +47,10 @@ class Routes {
                 ));
 
       case RouteName.cartScreen:
-        return MaterialPageRoute(builder: (context) => CartItems());
+        return MaterialPageRoute(builder: (context) => const CartItems());
 
       case RouteName.checkOutScreen:
-        return MaterialPageRoute(builder: (_) => CheckOutScreen());
+        return MaterialPageRoute(builder: (_) => const CheckOutScreen());
 
       default:
         return MaterialPageRoute(
@@ -58,15 +58,16 @@ class Routes {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Something went wrong!!"),
+                        const Text("Something went wrong!!"),
                         TextButton(
                             onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => HomeScreen()));
+                                      builder: (context) =>
+                                          const HomeScreen()));
                             },
-                            child: Text("Go to Homepage..."))
+                            child: const Text("Go to Homepage..."))
                       ]),
                 ));
     }

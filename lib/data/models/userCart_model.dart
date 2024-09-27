@@ -81,11 +81,11 @@ class Carts {
 class CartProducts {
   int? id;
   String? title;
-  int? price;
+  num? price;
   int? quantity;
-  int? total;
+  num? total;
   double? discountPercentage;
-  int? discountedPrice;
+  num? discountedTotal;
   String? thumbnail;
 
   CartProducts(
@@ -95,7 +95,7 @@ class CartProducts {
       this.quantity,
       this.total,
       this.discountPercentage,
-      this.discountedPrice,
+      this.discountedTotal,
       this.thumbnail});
 
   CartProducts.fromJson(Map<String, dynamic> json) {
@@ -105,7 +105,7 @@ class CartProducts {
     quantity = json['quantity'];
     total = json['total'];
     discountPercentage = json['discountPercentage'];
-    discountedPrice = json['discountedPrice'];
+    discountedTotal = json['discountedPrice'];
     thumbnail = json['thumbnail'];
   }
 
@@ -117,7 +117,7 @@ class CartProducts {
     data['quantity'] = this.quantity;
     data['total'] = this.total;
     data['discountPercentage'] = this.discountPercentage;
-    data['discountedPrice'] = this.discountedPrice;
+    data['discountedPrice'] = this.discountedTotal;
     data['thumbnail'] = this.thumbnail;
     return data;
   }

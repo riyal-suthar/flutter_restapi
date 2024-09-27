@@ -13,24 +13,24 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  String? token = '';
-
-  _getToken() {
+  String? _getToken() {
+    String? token;
     AppStore().getUserToken().then((value) {
       user = value;
-      setState(() {
-        token = value.token;
-      });
-      print("userToken: $token");
+
+      debugPrint("userToken: ${value.accessToken}");
+      debugPrint("user : ${value.toJson()}");
+      token = value.accessToken;
     });
+    return token;
   }
 
   @override
   void initState() {
     super.initState();
-    _getToken();
-    Future.delayed(Duration(seconds: 4), () {
-      if (token == "") {
+    String? token = _getToken();
+    Future.delayed(const Duration(seconds: 4), () {
+      if (token == "" || token == null) {
         Navigator.pushReplacementNamed(context, RouteName.logInScreen);
       } else {
         Navigator.pushReplacementNamed(context, RouteName.homeScreen);
@@ -40,15 +40,15 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print("splashcreen is visited");
+    debugPrint("splashscreen is visited");
     return Material(
       child: Column(
         children: [
-          Container(
+          SizedBox(
             height: 250,
             child: TweenAnimationBuilder(
               tween: Tween(begin: 0.0, end: 1.0),
-              duration: Duration(seconds: 3),
+              duration: const Duration(seconds: 3),
               builder: (context, val, _) {
                 return Opacity(
                     opacity: val,

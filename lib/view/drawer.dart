@@ -10,7 +10,7 @@ class DrawerView extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Flexible(
+          const Flexible(
             child: DrawerHeader(
                 decoration: BoxDecoration(color: Colors.white),
                 child: Row(
@@ -48,7 +48,7 @@ class DrawerView extends StatelessWidget {
           ),
           ListTile(
             // tileColor: Colors.black87,
-            leading: Icon(
+            leading: const Icon(
               Icons.logout,
               color: CupertinoColors.black,
             ),

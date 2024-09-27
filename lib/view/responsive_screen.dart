@@ -9,39 +9,37 @@ import 'package:provider/provider.dart';
 
 class ResponsiveScreen extends StatelessWidget {
   final p_id;
-  ResponsiveScreen({super.key, this.p_id});
+  const ResponsiveScreen({super.key, this.p_id});
 
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
-        body: MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => SingleProductProvider()),
-        ChangeNotifierProvider(create: (_) => CartListProvider())
-      ],
-      child: ResponsiveLayout(
-          Mobile: ProductItems(),
-          Tablet: Row(
-            children: [
-              Expanded(flex: 9, child: ProductItems()),
-              Expanded(flex: 9, child: ProductDescription())
-            ],
-          ),
-          Desktop: Row(
-            children: [
-              Expanded(flex: _size.width > 1340 ? 3 : 5, child: ProductItems()),
-              Expanded(
-                  flex: _size.width > 1340 ? 8 : 10,
-                  child: ProductDescription(
-                      // product_id: p_id,
-                      )),
-              // Expanded(
-              //     flex: _size.width > 1340 ? 8 : 10,
-              //     child: ProductDescription()),
-              Expanded(flex: _size.width > 1340 ? 2 : 4, child: Drawer_View())
-            ],
-          )),
-    ));
+        body: ResponsiveLayout(
+            mobile: const ProductItems(),
+            tablet: Row(
+              children: [
+                const Expanded(flex: 9, child: ProductItems()),
+                Expanded(flex: 9, child: ProductDescription())
+              ],
+            ),
+            desktop: Row(
+              children: [
+                Expanded(
+                    flex: _size.width > 1340 ? 3 : 5,
+                    child: const ProductItems()),
+                Expanded(
+                    flex: _size.width > 1340 ? 8 : 10,
+                    child: ProductDescription(
+                      product_id: p_id,
+                    )),
+                // Expanded(
+                //     flex: _size.width > 1340 ? 8 : 10,
+                //     child: ProductDescription()),
+                Expanded(
+                    flex: _size.width > 1340 ? 2 : 4,
+                    child: const Drawer_View())
+              ],
+            )));
   }
 }

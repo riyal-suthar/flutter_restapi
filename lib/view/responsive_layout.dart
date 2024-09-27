@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ResponsiveLayout extends StatelessWidget {
-  final Widget Mobile;
-  final Widget Tablet;
-  final Widget Desktop;
+  final Widget mobile;
+  final Widget tablet;
+  final Widget desktop;
   const ResponsiveLayout({
     Key? key,
-    required this.Mobile,
-    required this.Tablet,
-    required this.Desktop,
+    required this.mobile,
+    required this.tablet,
+    required this.desktop,
   }) : super(key: key);
 
   static int mobileLimit = 600;
@@ -29,12 +29,12 @@ class ResponsiveLayout extends StatelessWidget {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
       if (constraints.maxWidth < mobileLimit) {
-        return Mobile;
+        return mobile;
       }
       if (constraints.maxWidth < tabletLimit) {
-        return Tablet;
+        return tablet;
       } else {
-        return Desktop;
+        return desktop;
       }
     });
   }

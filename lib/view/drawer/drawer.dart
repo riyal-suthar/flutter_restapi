@@ -16,11 +16,11 @@ class Drawer_View extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: double.infinity,
-      padding: EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 20),
       color: Theme.of(context).canvasColor,
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: [
               Row(
@@ -31,11 +31,11 @@ class Drawer_View extends StatelessWidget {
                       width: 150,
                     ),
                   ),
-                  Spacer(),
-                  if (!ResponsiveLayout.isDesktop(context)) CloseButton(),
+                  const Spacer(),
+                  if (!ResponsiveLayout.isDesktop(context)) const CloseButton(),
                 ],
               ),
-              SizedBox(height: 20 * 2),
+              const SizedBox(height: 20 * 2),
               DrawerItem(
                 onPressed: () {
                   Navigator.pushNamed(context, RouteName.accountScreen);
@@ -92,7 +92,7 @@ class Drawer_View extends StatelessWidget {
                 title: "Advertising",
                 icon: Icons.account_box_outlined,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),
