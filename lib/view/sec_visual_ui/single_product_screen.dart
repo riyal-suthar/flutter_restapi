@@ -6,7 +6,7 @@ import 'package:flutter_restapi/routes/routes_name.dart';
 import 'package:flutter_restapi/viewModel/product_list_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../viewModel/cart_list_provider.dart';
+import '../../viewModel/cart_list_provider.dart';
 
 class Single_Product_Screen extends StatefulWidget {
   final product_id;
@@ -81,7 +81,7 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
                           enlargeCenterPage: true,
                           aspectRatio: 10.0,
                           onPageChanged: (index, reason) {
-                            print("page index is $index");
+                            debugPrint("page index is $index");
                             // _currentIndex = index;
                             context
                                 .read<SingleProductProvider>()
@@ -158,8 +158,8 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
               ),
               Text(
                 "${data.discountPercentage}%",
-                style:
-                    const TextStyle(color: Colors.red, fontWeight: FontWeight.w500),
+                style: const TextStyle(
+                    color: Colors.red, fontWeight: FontWeight.w500),
               ),
             ],
           ),
@@ -186,13 +186,6 @@ class _Single_Product_ScreenState extends State<Single_Product_Screen> {
                     child: const Text("ADD TO CART"),
                   );
                 }),
-                // OutlinedButton(
-                //   onPressed: () {
-                //     Navigator.pushNamed(context, RouteName.cartScreen);
-                //     Products cartProduct = data;
-                //   },
-                //   child: const Text("ADD TO CART"),
-                // ),
                 const SizedBox(
                   width: 24.0,
                 ),

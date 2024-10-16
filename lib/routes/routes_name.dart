@@ -6,4 +6,7 @@ class RouteName {
   static const String singleProductScreen = '/single_product_detail_screen';
   static const String cartScreen = '/cart_screen';
   static const String checkOutScreen = '/checkout_screen';
+
+  // Another Visuals UI/UX
+  static const String secHomeScreen = '/sec_home_screen';
 }

@@ -5,15 +5,14 @@ import 'package:flutter_restapi/viewModel/login_provider.dart';
 import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
-  LoginScreen({
+  const LoginScreen({
     super.key,
   });
 
-  TextEditingController emailC = TextEditingController();
-  TextEditingController passwordC = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
+    TextEditingController emailC = TextEditingController();
+    TextEditingController passwordC = TextEditingController();
     final logInProvider = Provider.of<LogInProvider>(context);
     return Material(
       child: Padding(
@@ -25,9 +24,12 @@ class LoginScreen extends StatelessWidget {
                 ImageAssets.instance.appLogin,
                 height: 200,
               ),
-              const SizedBox(height: 12,),
+              const SizedBox(
+                height: 12,
+              ),
               TextFormField(
                 controller: emailC,
+                enableInteractiveSelection: false,
                 decoration: const InputDecoration(
                     hintText: 'Email or Username',
                     border: OutlineInputBorder(
@@ -38,6 +40,7 @@ class LoginScreen extends StatelessWidget {
               ),
               TextFormField(
                 controller: passwordC,
+                enableInteractiveSelection: false,
                 decoration: const InputDecoration(
                     hintText: 'Password',
                     border: OutlineInputBorder(
@@ -53,17 +56,19 @@ class LoginScreen extends StatelessWidget {
                     "password": passwordC.text.toString(),
                   };
 
-                  logInProvider.useLogin(data, context);
+                  logInProvider.userLogin(data, context);
                   // Navigator.pushReplacementNamed(context, RouteName.homeScreen);
                 },
                 child: logInProvider.isLoading
                     ? const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: CircularProgressIndicator(),
-                    )
+                        padding: EdgeInsets.all(8.0),
+                        child: CircularProgressIndicator(),
+                      )
                     : const Text("Login"),
               ),
-              const SizedBox(height: 21,),
+              const SizedBox(
+                height: 21,
+              ),
               const Tooltip(
                 message: "Username: emilys\nPassword: emilyspass",
                 child: Icon(

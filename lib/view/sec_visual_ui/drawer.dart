@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_restapi/app_store/shared_preference.dart';
+import 'package:flutter_restapi/routes/routes_name.dart';
 
 class DrawerView extends StatelessWidget {
   const DrawerView({super.key});
@@ -49,6 +51,22 @@ class DrawerView extends StatelessWidget {
           ListTile(
             // tileColor: Colors.black87,
             leading: const Icon(
+              Icons.change_circle_outlined,
+              color: CupertinoColors.black,
+            ),
+            title: const Text(
+              'Change Visual UI/UX',
+              style: TextStyle(fontSize: 25, color: CupertinoColors.white),
+              textAlign: TextAlign.center,
+            ),
+            onTap: () {
+              Navigator.pushNamedAndRemoveUntil(context, RouteName.homeScreen,
+                  (Route<dynamic> route) => false);
+            },
+          ),
+          ListTile(
+            // tileColor: Colors.black87,
+            leading: const Icon(
               Icons.logout,
               color: CupertinoColors.black,
             ),
@@ -61,7 +79,9 @@ class DrawerView extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             onTap: () {
-              // FirebaseAuth.instance.signOut();
+              AppStore().removeToken();
+              Navigator.pushNamedAndRemoveUntil(context, RouteName.logInScreen,
+                  (Route<dynamic> route) => false);
             },
           ),
         ],

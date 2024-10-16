@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_restapi/view/drawer/drawer.dart';
-import 'package:flutter_restapi/view/products/product_description.dart';
-import 'package:flutter_restapi/view/products/product_items.dart';
-import 'package:flutter_restapi/view/responsive_layout.dart';
+import 'package:flutter_restapi/view/visual_ui/drawer/drawer.dart';
+import 'package:flutter_restapi/view/visual_ui/products/product_description.dart';
+import 'package:flutter_restapi/view/visual_ui/products/product_items.dart';
+import 'package:flutter_restapi/view/responsive_layout/responsive_layout.dart';
 import 'package:flutter_restapi/viewModel/cart_list_provider.dart';
 import 'package:flutter_restapi/viewModel/product_list_provider.dart';
 import 'package:provider/provider.dart';

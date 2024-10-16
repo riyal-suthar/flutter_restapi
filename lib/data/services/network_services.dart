@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_restapi/data/services/app_exceptions.dart';
 import 'package:http/http.dart' as http;
 
@@ -20,11 +22,12 @@ class NetworkApiServices extends BaseApiServices {
         dynamic responseJson = jsonDecode(response.body);
         return responseJson;
       case 400:
-        return UnAuthorizedException(message: "Bad request");
+        throw UnAuthorizedException(response.body.toString());
       case 401:
-        return UnAuthorizedException(message: "Access is not for you");
+        throw UnAuthorizedException(response.body.toString());
       default:
-        return FetchDataException(message: "Error during communication");
+        throw FetchDataException(
+            'Error occurred while Communication with Server with status code ${response.statusCode}');
     }
   }
 
@@ -33,11 +36,14 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
 
     try {
-      http.Response response = await http.get(Uri.parse(url));
+      http.Response response =
+          await http.get(Uri.parse(url)).timeout(const Duration(seconds: 30));
       responseJson = apiResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet Connection');
     } catch (e) {
-      // throw e.toString();
-      print(e.toString());
+      debugPrint(e.toString());
+      rethrow;
     }
 
     return responseJson;
@@ -48,10 +54,12 @@ class NetworkApiServices extends BaseApiServices {
     dynamic responseJson;
 
     try {
-      http.Response response = await http.post(Uri.parse(url), body: data);
+      http.Response response = await http
+          .post(Uri.parse(url), body: data)
+          .timeout(const Duration(seconds: 30));
       responseJson = apiResponse(response);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
 
     return responseJson;
@@ -65,7 +73,7 @@ class NetworkApiServices extends BaseApiServices {
       http.Response response = await http.put(Uri.parse(url), body: data);
       responseJson = apiResponse(response);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
 
     return responseJson;
@@ -79,7 +87,7 @@ class NetworkApiServices extends BaseApiServices {
       http.Response response = await http.delete(Uri.parse(url));
       responseJson = apiResponse(response);
     } catch (e) {
-      print(e.toString());
+      debugPrint(e.toString());
     }
     return responseJson;
   }

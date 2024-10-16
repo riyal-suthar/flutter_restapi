@@ -2,7 +2,7 @@ import 'package:flutter_restapi/data/models/loginUser_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AppStore {
-  setUserToken(LoginUser user) async {
+  setUserToken(UserM user) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setInt('user_id', user.id!);
     sp.setString('user_token', user.accessToken.toString());
@@ -11,7 +11,7 @@ class AppStore {
     sp.setString('user_email', user.email.toString());
   }
 
-  Future<LoginUser> getUserToken() async {
+  Future<UserM> getUserToken() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
 
     int? userId = sp.getInt('user_id');
@@ -20,13 +20,20 @@ class AppStore {
     String? userImage = sp.getString('user_image');
     String? userEmail = sp.getString('user_email');
 
-    return LoginUser(
+    return UserM(
       id: userId,
       accessToken: userToken,
       username: userName,
       email: userEmail,
       image: userImage,
     );
+  }
+
+  Future<dynamic> getMyId() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+
+    int? userId = sp.getInt('user_id');
+    return userId;
   }
 
   removeToken() async {

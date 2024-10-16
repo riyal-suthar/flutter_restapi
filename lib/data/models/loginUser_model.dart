@@ -1,5 +1,5 @@
-class LoginUser {
-  LoginUser({
+class UserM {
+  UserM({
     required this.id,
     required this.username,
     required this.email,
@@ -19,8 +19,8 @@ class LoginUser {
   final String? image;
   final String? accessToken;
 
-  factory LoginUser.fromJson(Map<String, dynamic> json) {
-    return LoginUser(
+  factory UserM.fromJson(Map<String, dynamic> json) {
+    return UserM(
       id: json["id"],
       username: json["username"],
       email: json["email"],

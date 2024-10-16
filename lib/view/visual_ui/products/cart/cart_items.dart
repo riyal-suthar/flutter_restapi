@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_restapi/viewModel/cart_list_provider.dart';
 import 'package:provider/provider.dart';
-import '../../../data/services/api_response.dart';
-import '../../../routes/routes_name.dart';
+import '../../../../data/services/api_response.dart';
+import '../../../../routes/routes_name.dart';
 import 'cart_item.dart';
 
 class CartItems extends StatefulWidget {
@@ -168,31 +168,33 @@ class _CartItemsState extends State<CartItems> {
                     )
                   ],
                 ),
-                body: ListView.builder(
-                    itemCount:
-                        value.userCartList.data!.carts![0].products!.length,
-                    padding: const EdgeInsets.all(12),
-                    itemBuilder: (ctx, index) {
-                      var item =
-                          value.userCartList.data!.carts![0].products![index];
-                      print("item id :" + item.id.toString());
-                      return CartItem(
-                        item: item,
-                        onMinusQty: () {
-                          if (qty > 1) {
-                            qty--;
-                            value.updateLocalQty(index, qty);
-                          }
-                        },
-                        onRemoveCart: () {
-                          value.removeFromLocalCart(index);
-                        },
-                        onAddQty: () {
-                          qty++;
-                          value.updateLocalQty(index, qty);
-                        },
-                      );
-                    }),
+                body: value.userCartList.data!.carts!.isEmpty
+                    ? const Center(child: Text("Cart is Empty"))
+                    : ListView.builder(
+                        itemCount:
+                            value.userCartList.data!.carts![0].products!.length,
+                        padding: const EdgeInsets.all(12),
+                        itemBuilder: (ctx, index) {
+                          var item = value
+                              .userCartList.data!.carts![0].products![index];
+                          print("item id :" + item.id.toString());
+                          return CartItem(
+                            item: item,
+                            onMinusQty: () {
+                              if (qty > 1) {
+                                qty--;
+                                value.updateLocalQty(index, qty);
+                              }
+                            },
+                            onRemoveCart: () {
+                              value.removeFromLocalCart(index);
+                            },
+                            onAddQty: () {
+                              qty++;
+                              value.updateLocalQty(index, qty);
+                            },
+                          );
+                        }),
               );
             default:
               return const SizedBox();

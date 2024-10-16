@@ -60,7 +60,8 @@ class CartListProvider with ChangeNotifier {
   Future<void> addToCart(dynamic data) async {
     setUserCartList(ApiResponse.loading());
     _appRepository.addToCartProduct(data).then((value) {
-      toastMessage(value.toString() + "\nproduct added to cart successfully.");
+      toastMessage("product added to cart successfully.");
+      // toastMessage("$value\nproduct added to cart successfully.");
     }).onError((error, stackTrace) => toastMessage("something went wrong"));
   }
 

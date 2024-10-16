@@ -14,7 +14,7 @@ class AppRepository {
 
   //---- base url for api
   static const String dummyUrl = "https://dummyjson.com/";
-  static const String fackStoreUrl = "https://fakestoreapi.com/";
+  static const String fakeStoreUrl = "https://fakestoreapi.com/";
 
   static const String _baseUrl = dummyUrl;
 
@@ -43,12 +43,14 @@ class AppRepository {
   //---- add product for admin
   static const String _addProductUrl = "${_baseUrl}products/add";
 
-  Future<LoginUser?> userLogIn(dynamic data) async {
+  final userId = AppStore().getMyId();
+
+  Future<UserM?> userLogIn(dynamic data) async {
     var response = await _apiServices.postApi(_loginUrl, data);
 
     try {
       debugPrint("user login ==> ${response.toString()}");
-      return response = LoginUser.fromJson(response);
+      return response = UserM.fromJson(response);
     } catch (e) {
       debugPrint(e.toString());
     }
@@ -133,8 +135,7 @@ class AppRepository {
 
   Future<UserCartList?> userCartList() async {
     debugPrint(userId.toString());
-    var response =
-        await _apiServices.getApi(_userCartListUrl + userId.toString());
+    var response = await _apiServices.getApi(_userCartListUrl + "1");
 
     debugPrint("user cart ==> ${response.toString()}");
 
@@ -196,7 +197,7 @@ class AppRepository {
     }
   }
 
-  Future<List<dynamic?>?> categoryList() async {
+  Future<List<dynamic>?> categoryList() async {
     var response = await _apiServices.getApi(_categoriesUrl);
 
     debugPrint("user cat ==> ${response.toString()}");

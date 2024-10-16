@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_restapi/view/drawer/drawer.dart';
-import 'package:flutter_restapi/view/products/product_description.dart';
-import 'package:flutter_restapi/view/products/product_item.dart';
-import 'package:flutter_restapi/view/single_product_screen.dart';
+import 'package:flutter_restapi/view/visual_ui/drawer/drawer.dart';
+import 'package:flutter_restapi/view/sec_visual_ui/single_product_screen.dart';
+import 'package:flutter_restapi/view/visual_ui/products/product_item.dart';
 import 'package:provider/provider.dart';
-
-import '../../data/services/api_response.dart';
-import '../../routes/routes_name.dart';
-import '../../viewModel/product_list_provider.dart';
-import '../responsive_layout.dart';
+import '../../../data/services/api_response.dart';
+import '../../../viewModel/product_list_provider.dart';
+import '../../responsive_layout/responsive_layout.dart';
 
 class ProductItems extends StatefulWidget {
   const ProductItems({super.key});
@@ -27,7 +24,7 @@ class _ProductItemsState extends State<ProductItems> {
   @override
   void initState() {
     productListProvider.fetchProductList();
-    productListProvider.fetchCatogoryList();
+    productListProvider.fetchCategoryList();
     super.initState();
   }
 
@@ -53,7 +50,7 @@ class _ProductItemsState extends State<ProductItems> {
               key: _scaffoldKey,
               endDrawer: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 250),
-                  child: const Drawer_View()),
+                  child: Drawer_View()),
               body: SingleChildScrollView(
                 child: Column(
                   children: [
@@ -89,37 +86,41 @@ class _ProductItemsState extends State<ProductItems> {
                     const SizedBox(
                       height: 12,
                     ),
-                    SizedBox(
-                      height: 50,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: prodlist.categoryList.data!.length,
-                          itemBuilder: (context, index) {
-                            var x =
-                                prodlist.categoryList.data![index].toString();
-                            final choice = x;
-                            return Padding(
-                                padding: const EdgeInsets.all(8),
-                                child: ChoiceChip.elevated(
-                                  label: Text(
-                                    x,
-                                    style: const TextStyle(),
-                                  ),
-                                  iconTheme: const IconThemeData(),
-                                  selected: _selected == choice,
-                                  onSelected: (val) {
-                                    prodlist.fetchCategoryProductList(x);
-                                    if (_selected == choice) {
-                                      _selected = null;
-                                      prodlist.fetchProductList();
-                                    } else {
-                                      _selected = choice;
-                                    }
-                                  },
-                                  selectedColor: Colors.indigoAccent.shade100,
-                                ));
-                          }),
-                    ),
+                    if (prodlist.categoryList.data == null ||
+                        prodlist.categoryList.data!.isEmpty)
+                      LinearProgressIndicator()
+                    else
+                      SizedBox(
+                        height: 50,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: prodlist.categoryList.data!.length,
+                            itemBuilder: (context, index) {
+                              var x =
+                                  prodlist.categoryList.data![index].toString();
+                              final choice = x;
+                              return Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: ChoiceChip.elevated(
+                                    label: Text(
+                                      x,
+                                      style: const TextStyle(),
+                                    ),
+                                    iconTheme: const IconThemeData(),
+                                    selected: _selected == choice,
+                                    onSelected: (val) {
+                                      prodlist.fetchCategoryProductList(x);
+                                      if (_selected == choice) {
+                                        _selected = null;
+                                        prodlist.fetchProductList();
+                                      } else {
+                                        _selected = choice;
+                                      }
+                                    },
+                                    selectedColor: Colors.indigoAccent.shade100,
+                                  ));
+                            }),
+                      ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -128,7 +129,8 @@ class _ProductItemsState extends State<ProductItems> {
                         shrinkWrap: true,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         itemCount: prodlist.productList.data!.products!.length,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 20,
                           crossAxisSpacing: 20,

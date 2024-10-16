@@ -21,7 +21,7 @@ class ProductListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchCatogoryList() async {
+  Future<void> fetchCategoryList() async {
     setCategoryList(ApiResponse.loading());
     _appRepository.categoryList().then((value) {
       setCategoryList(ApiResponse.complete(value));
@@ -33,7 +33,7 @@ class ProductListProvider with ChangeNotifier {
   }
 
   Future<void> fetchCategoryProductList(String categoryName) async {
-    if (categoryName.isEmpty || categoryName == null) {
+    if (categoryName.isEmpty || categoryName == "") {
       fetchProductList();
     } else {
       setProductList(ApiResponse.loading());

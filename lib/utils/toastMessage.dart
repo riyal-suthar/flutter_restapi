@@ -14,6 +14,9 @@ toastMessage(String message) {
       fontSize: 16.0);
 }
 
-final userId = AppStore().getUserToken().then((value) => value.id);
+// final userId = AppStore().getUserToken().then((value) {
+//   debugPrint(value.id.toString());
+//   return value.id;
+// });
 
-LoginUser? user;
+// UserM? user;

@@ -15,7 +15,7 @@ class LogInProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> useLogin(dynamic data, BuildContext context) async {
+  Future<void> userLogin(dynamic data, BuildContext context) async {
     setLoading(true);
     _appRepository.userLogIn(data).then((value) {
       if (value!.accessToken == '' || value.accessToken == null) {

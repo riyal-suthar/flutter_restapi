@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_restapi/data/services/api_response.dart';
 import 'package:flutter_restapi/routes/routes_name.dart';
-import 'package:flutter_restapi/view/drawer.dart';
+import 'package:flutter_restapi/view/sec_visual_ui/drawer.dart';
 import 'package:flutter_restapi/viewModel/product_list_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     productListProvider.fetchProductList();
-    productListProvider.fetchCatogoryList();
+    productListProvider.fetchCategoryList();
     super.initState();
   }
 
@@ -31,9 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
           bool isSelected = false;
           switch (value.productList.status) {
             case Status.loading:
-              return const Center(child: CircularProgressIndicator(),);
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             case Status.error:
-              return Center(child: Text(value.productList.message.toString()),);
+              return Center(
+                child: Text(value.productList.message.toString()),
+              );
             case Status.complete:
               return Scaffold(
                 // drawer: (isMobile(context)) ? const Drawer() : Container(),
@@ -56,31 +60,39 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(
-                        height: 12,
+                        height: 5,
                       ),
-                      SizedBox(
-                        height: 100,
-                        child: ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: value.categoryList.data!.length,
-                            itemBuilder: (context, index) {
-                              var x = value.categoryList.data![index].toString();
+                      if (value.categoryList.data != null)
+                        SizedBox(
+                          height: 50,
+                          child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemCount: value.categoryList.data!.length,
+                              itemBuilder: (context, index) {
+                                var x =
+                                    value.categoryList.data![index].toString();
 
-                              return Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: ChoiceChip.elevated(
-                                    label: Text(x, style: Theme.of(context).textTheme.labelMedium,),
-                                    selected: isSelected,
-                                    onSelected: (val) {
-                                      productListProvider.fetchCategoryProductList(x);
-                                      setState(() {
-                                        isSelected = val;
-                                      });
-                                    },
-                                    selectedColor: Colors.indigoAccent,
-                                  ));
-                            }),
-                      ),
+                                return Padding(
+                                    padding: const EdgeInsets.all(8),
+                                    child: ChoiceChip.elevated(
+                                      label: Text(
+                                        x,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelMedium,
+                                      ),
+                                      selected: isSelected,
+                                      onSelected: (val) {
+                                        productListProvider
+                                            .fetchCategoryProductList(x);
+                                        setState(() {
+                                          isSelected = val;
+                                        });
+                                      },
+                                      selectedColor: Colors.indigoAccent,
+                                    ));
+                              }),
+                        ),
                       const SizedBox(
                         height: 8,
                       ),
@@ -108,7 +120,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 flex: constraint.maxWidth > 600 ? 7 : 9,
                 child: desktopScreen(value)),
             Expanded(
-                flex: constraint.maxWidth > 1100 ? 3 : 0, child: const DrawerView())
+                flex: constraint.maxWidth > 1100 ? 3 : 0,
+                child: const DrawerView())
           ],
         );
       } else {
@@ -168,18 +181,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             // style: const TextStyle(fontWeight: FontWeight.w600),
                             style: Theme.of(context).textTheme.bodyLarge,
                           ),
-
                           Text(
                             data.description.toString(),
                             maxLines: 2,
                             softWrap: true,
                             style: Theme.of(context).textTheme.bodyMedium,
                           ),
-                          Text("Price : ${data.price.toString()} Rs.",style: Theme.of(context).textTheme.bodyMedium,),
-                          Text(data.category.toString(), style: Theme.of(context).textTheme.bodyMedium,),
+                          Text(
+                            "Price : ${data.price.toString()} Rs.",
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          Text(
+                            data.category.toString(),
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
                           Row(
                             children: [
-                              Text(data.rating.toString(), style: Theme.of(context).textTheme.bodyMedium,),
+                              Text(
+                                data.rating.toString(),
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
                               Text(
                                 data.discountPercentage.toString(),
                                 style: const TextStyle(color: Colors.red),

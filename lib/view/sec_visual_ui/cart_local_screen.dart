@@ -37,7 +37,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         Text(
-                          value.totalLocalPrice().toString() + "Rs.",
+                          "${value.totalLocalPrice()}Rs.",
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -160,7 +160,7 @@ class _CartScreenState extends State<CartScreen> {
                                         ],
                                       ),
                                       Text(
-                                        item[0].price.toString() + " Rs.",
+                                        "${item[0].price} Rs.",
                                         style: const TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.bold,

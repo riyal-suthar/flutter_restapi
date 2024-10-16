@@ -1,18 +1,20 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_restapi/app_store/shared_preference.dart';
+import 'package:flutter_restapi/data/models/loginUser_model.dart';
 import 'package:flutter_restapi/data/models/product_model.dart';
 import 'package:flutter_restapi/data/repository/repository.dart';
 import 'package:flutter_restapi/routes/routes_name.dart';
 import 'package:flutter_restapi/utils/app_img.dart';
-import 'package:flutter_restapi/view/products/product_items.dart';
+import 'package:flutter_restapi/view/visual_ui/products/product_items.dart';
 import 'package:flutter_restapi/viewModel/cart_list_provider.dart';
+import 'package:flutter_restapi/viewModel/services/auth_check_services.dart';
 import 'package:provider/provider.dart';
 
-import '../../data/services/api_response.dart';
-import '../../utils/toastMessage.dart';
-import '../../viewModel/product_list_provider.dart';
-import '../responsive_layout.dart';
+import '../../../data/services/api_response.dart';
+import '../../../utils/toastMessage.dart';
+import '../../../viewModel/product_list_provider.dart';
+import '../../responsive_layout/responsive_layout.dart';
 
 class ProductDescription extends StatefulWidget {
   final product_id;
@@ -143,9 +145,10 @@ class _ProductDescriptionState extends State<ProductDescription> {
                       "Add to Cart",
                       style: TextStyle(color: Colors.black.withOpacity(0.8)),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
+                      UserM user = await AuthCheckServices().getUserData();
                       Map data = {
-                        "userId": user!.id.toString(),
+                        "userId": user.id,
                         "products": [
                           {
                             "id": singleProd.singleProductDetails.data!.id,
@@ -240,7 +243,7 @@ class _ProductDescriptionState extends State<ProductDescription> {
                               ),
                             ),
                             SizedBox(width: 10),
-                            Text("Rs.${data!.price.toString()}",
+                            Text("Rs.${data.price.toString()}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleLarge
