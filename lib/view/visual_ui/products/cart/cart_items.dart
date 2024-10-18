@@ -7,7 +7,8 @@ import '../../../../routes/routes_name.dart';
 import 'cart_item.dart';
 
 class CartItems extends StatefulWidget {
-  const CartItems({super.key});
+  final userId;
+  const CartItems({super.key, this.userId});
 
   @override
   State<CartItems> createState() => _CartItemsState();
@@ -18,7 +19,7 @@ class _CartItemsState extends State<CartItems> {
 
   @override
   void initState() {
-    cartListProvider.userCart();
+    cartListProvider.userCart(widget.userId);
     super.initState();
   }
 
@@ -60,9 +61,7 @@ class _CartItemsState extends State<CartItems> {
                                       ),
                                     ),
                                     Text(
-                                      value.userCartList.data!.carts![0].total
-                                              .toString() +
-                                          " Rs.",
+                                      "${value.userCartList.data!.carts![0].total} Rs.",
                                       style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -82,10 +81,7 @@ class _CartItemsState extends State<CartItems> {
                                       ),
                                     ),
                                     Text(
-                                      value.userCartList.data!.carts![0]
-                                              .discountedTotal
-                                              .toString() +
-                                          " Rs.",
+                                      "${value.userCartList.data!.carts![0].discountedTotal} Rs.",
                                       style: const TextStyle(
                                         fontSize: 18.0,
                                         fontWeight: FontWeight.bold,
@@ -162,7 +158,7 @@ class _CartItemsState extends State<CartItems> {
                   actions: [
                     IconButton(
                       onPressed: () {
-                        value.removeCartList();
+                        value.removeCartList(widget.userId);
                       },
                       icon: const Icon(Icons.delete),
                     )
@@ -177,7 +173,7 @@ class _CartItemsState extends State<CartItems> {
                         itemBuilder: (ctx, index) {
                           var item = value
                               .userCartList.data!.carts![0].products![index];
-                          print("item id :" + item.id.toString());
+                          print("item id :${item.id}");
                           return CartItem(
                             item: item,
                             onMinusQty: () {

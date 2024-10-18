@@ -46,10 +46,10 @@ class CartListProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> userCart() async {
+  Future<void> userCart(int userId) async {
     setUserCartList(ApiResponse.loading());
     _appRepository
-        .userCartList()
+        .userCartList(userId)
         .then((value) => setUserCartList(ApiResponse.complete(value)))
         .onError((error, stackTrace) {
       toastMessage("Something went Wrong on cart page");
@@ -65,23 +65,23 @@ class CartListProvider with ChangeNotifier {
     }).onError((error, stackTrace) => toastMessage("something went wrong"));
   }
 
-  Future<void> updateCart(dynamic data) async {
+  Future<void> updateCart(dynamic data, int userId) async {
     setUserCartList(ApiResponse.loading());
-    _appRepository.updateCartProduct(data).then((value) {
+    _appRepository.updateCartProduct(data, userId).then((value) {
       toastMessage(value.toString() + "\nproduct added to cart successfully.");
     }).onError((error, stackTrace) => toastMessage("something went wrong"));
   }
 
-  Future<void> removeCartList() async {
+  Future<void> removeCartList(int userId) async {
     setUserCartList(ApiResponse.loading());
-    _appRepository.deleteCartList().then((value) {
+    _appRepository.deleteCartList(userId).then((value) {
       toastMessage("Cart products deleted successfully.");
     }).onError((error, stackTrace) => toastMessage("something went wrong"));
   }
 
-  Future<void> removeCartProduct(dynamic data) async {
+  Future<void> removeCartProduct(dynamic data, int userId) async {
     setUserCartList(ApiResponse.loading());
-    _appRepository.deleteCartList().then((value) {
+    _appRepository.deleteCartList(userId).then((value) {
       toastMessage("Cart removed successfully.");
     }).onError((error, stackTrace) => toastMessage("something went wrong"));
   }

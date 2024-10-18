@@ -8,7 +8,7 @@ class DrawerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

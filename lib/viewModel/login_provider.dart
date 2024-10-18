@@ -51,9 +51,9 @@ class LogInProvider with ChangeNotifier {
     });
   }
 
-  Future<void> updateUser(context, dynamic data) async {
+  Future<void> updateUser(context, dynamic data, int userId) async {
     setLoading(true);
-    _appRepository.updateUser(data).then((value) {
+    _appRepository.updateUser(data, userId).then((value) {
       toastMessage("Profile Updated Successfully..");
       AppStore().setUserToken(value);
 
@@ -66,9 +66,9 @@ class LogInProvider with ChangeNotifier {
   }
 
   //---- for admin use
-  Future<void> deleteUser() async {
+  Future<void> deleteUser(int userId) async {
     setLoading(true);
-    _appRepository.deleteUser().then((value) {
+    _appRepository.deleteUser(userId).then((value) {
       toastMessage("User deleted successfully..");
       AppStore().setUserToken(value);
 

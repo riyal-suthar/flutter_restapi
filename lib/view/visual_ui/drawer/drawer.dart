@@ -66,7 +66,8 @@ class Drawer_View extends StatelessWidget {
                     ),
                     DrawerItem(
                       onPressed: () {
-                        Navigator.pushNamed(context, RouteName.cartScreen);
+                        Navigator.pushNamed(context, RouteName.cartScreen,
+                            arguments: user.id);
                       },
                       title: "Your Cart",
                       icon: Icons.shopping_bag_outlined,

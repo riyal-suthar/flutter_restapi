@@ -1,5 +1,5 @@
 class UserM {
-  UserM({
+  const UserM({
     required this.id,
     required this.username,
     required this.email,

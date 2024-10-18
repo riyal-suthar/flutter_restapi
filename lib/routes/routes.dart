@@ -47,7 +47,11 @@ class Routes {
                 ));
 
       case RouteName.cartScreen:
-        return MaterialPageRoute(builder: (context) => const CartItems());
+        int id = settings.arguments as int;
+        return MaterialPageRoute(
+            builder: (context) => CartItems(
+                  userId: id,
+                ));
 
       case RouteName.checkOutScreen:
         return MaterialPageRoute(builder: (_) => const CheckOutScreen());

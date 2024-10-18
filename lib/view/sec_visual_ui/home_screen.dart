@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_restapi/data/services/api_response.dart';
 import 'package:flutter_restapi/routes/routes_name.dart';
+import 'package:flutter_restapi/view/responsive_layout/responsive_layout.dart';
 import 'package:flutter_restapi/view/sec_visual_ui/drawer.dart';
 import 'package:flutter_restapi/viewModel/product_list_provider.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             case Status.complete:
               return Scaffold(
-                // drawer: (isMobile(context)) ? const Drawer() : Container(),
+                drawer: Drawer(child: DrawerView()),
                 body: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -96,7 +97,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      buildLayoutBuilder(value),
+                      // buildLayoutBuilder(value),
+                      mobileScreen(value)
                     ],
                   ),
                 ),
@@ -112,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraint) {
-      if (constraint.maxWidth > 650) {
+      if (constraint.maxWidth > 2000) {
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -120,8 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 flex: constraint.maxWidth > 600 ? 7 : 9,
                 child: desktopScreen(value)),
             Expanded(
-                flex: constraint.maxWidth > 1100 ? 3 : 0,
-                child: const DrawerView())
+                flex: constraint.maxWidth > 1100 ? 3 : 0, child: DrawerView())
           ],
         );
       } else {

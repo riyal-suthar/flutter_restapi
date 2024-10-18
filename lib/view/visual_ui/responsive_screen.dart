@@ -33,9 +33,6 @@ class ResponsiveScreen extends StatelessWidget {
                     child: ProductDescription(
                       product_id: p_id,
                     )),
-                // Expanded(
-                //     flex: _size.width > 1340 ? 8 : 10,
-                //     child: ProductDescription()),
                 Expanded(
                     flex: _size.width > 1340 ? 2 : 4,
                     child: const Drawer_View())
